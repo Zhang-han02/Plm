@@ -1,0 +1,11 @@
+com\plm\common\IErrorCode.class
+com\plm\common\CommonResult.class
+com\plm\common\CommonPage.class
+com\plm\config\MyBatisConfig.class
+com\plm\common\ResultCode.class
+com\plm\PlmApplication.class
+com\plm\service\impl\PlmServiceImpl.class
+com\plm\config\CorsConfig.class
+com\plm\controller\PlmController.class
+com\plm\mapper\PlmMapper.class
+com\plm\service\PlmService.class
