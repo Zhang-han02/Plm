@@ -68,7 +68,7 @@ data() {
 /deep/.el-table__body .el-table__row.hover-row td {
   background-color: #10D7FF;
 }
-.user_skills /deep/ .el-table tbody tr:hover>td { background-color: #10D7FF }
+.user_skills /deep/ .el-table tbody tr:hover>td { background-color: #1075ad }
 .el-table::before {//去除底部白线
 	 left: 0;
 	 bottom: 0;

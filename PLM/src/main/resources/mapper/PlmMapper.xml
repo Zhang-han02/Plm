@@ -35,7 +35,7 @@
                             when PRJ_STATUS=2 then '0'
                             else datediff(day,PRJ_STARTDATE,PRJ_FINISHDATE ) end as shenyutianshu,
                         concat(convert(decimal(18,0),PRJ_FINISHWORKLOAD*100),'%') as jindu
-        from ProjectTeamMember pt --项目 角色 成员关联表
+        from ProjectTeamMember pt
                  left join ProjectRole pr on pr.PR_ROLEID=pt.PTM_ROLEID
                  left join dbo.Projects pj on pj.PRJ_PROJECTID=pt.PTM_PROJECTID
                  left join dbo.Users u on u.USERID=pt.PTM_USERID
@@ -44,8 +44,8 @@
     </select>
 
     <select id="youxiaTwo"  resultType="java.util.Map">
-        SELECT   D.DC_DOCNO as nameCode ,--文档编号
-                 D.DC_DOCNAME as name,--文档名称
+        SELECT   D.DC_DOCNO as nameCode ,
+                 D.DC_DOCNAME as name,
                  D1.三个月预计订单量 as total , D1.预计结束时间 as endDate, D1.预计开始时间  as startDate
         FROM  DOCUMENT  D
                   inner JOIN Document1  D1 ON  D.DC_DOCID=D1.COL_DOCUMENTID WHERE D.DC_DOCCLASS =43

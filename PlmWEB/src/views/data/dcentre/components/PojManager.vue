@@ -95,7 +95,7 @@ data() {
 .user_skills /deep/  .el-table--enable-row-transition .el-table__body td, .el-table .cell{
    background-color: transparent;
 }
-.user_skills /deep/ .el-table tbody tr:hover>td { background-color: #10D7FF }
+.user_skills /deep/ .el-table tbody tr:hover>td { background-color: #1075ad }
 .el-table::before {//去除底部白线
 	 left: 0;
 	 bottom: 0;

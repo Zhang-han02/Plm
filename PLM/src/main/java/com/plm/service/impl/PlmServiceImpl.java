@@ -51,6 +51,12 @@ public class PlmServiceImpl implements PlmService {
         List<Map<String, Object>> mapList = plmMapper.youxiaTwo();
         //格式化时间
         for (Map obj: mapList) {
+            String name = (String) obj.get("name");
+            int index = name.lastIndexOf(".");
+            if (index != -1){
+                name= name.substring(0,index);
+            }
+            obj.put("name",name);
             obj.put("endDate",format.format(obj.get("endDate")));
             obj.put("startDate",format.format(obj.get("startDate")));
         }

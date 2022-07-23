@@ -77,6 +77,7 @@ export default {
         },
         tooltip: {
           trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)',
           backgroundColor:'rgba(255,255,255,0.8)',
         },
         legend: {
