@@ -48,6 +48,21 @@ export function youxiaTwo() {
     })
 }
 
+export function zhuzhuangtu() {
+  return request({
+    url: 'plm/zhuzhuangtu',
+    method: 'get'
+  })
+}
+
+
+export function selectPojNum() {
+  return request({
+    url: 'plm/selectPojNum',
+    method: 'get'
+  })
+}
+
 
 
 export default {

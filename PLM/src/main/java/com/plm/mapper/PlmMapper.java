@@ -24,4 +24,9 @@ public interface PlmMapper {
 
 
     List<Map<String,Object>> youxiaTwo();
+
+    List<Map<String,Object>> zhuzhuangtu();
+
+    List<Map<String,Object>> selectPojNum();
+
 }

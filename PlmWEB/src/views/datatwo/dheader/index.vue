@@ -14,7 +14,7 @@ export default {
 
   data() {
     return {
-      msg:"PLM项目看板经营数据"
+      msg:"PLM项目管理看板"
     };
   },
 };

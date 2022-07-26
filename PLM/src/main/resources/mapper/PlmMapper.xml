@@ -50,4 +50,12 @@
         FROM  DOCUMENT  D
                   inner JOIN Document1  D1 ON  D.DC_DOCID=D1.COL_DOCUMENTID WHERE D.DC_DOCCLASS =43
     </select>
+
+    <select id="zhuzhuangtu"  resultType="java.util.Map">
+        {call kanban2_zhuzhuangtu_info}
+    </select>
+
+    <select id="selectPojNum"  resultType="java.util.Map">
+        {call kanban2_xia_info}
+    </select>
 </mapper>

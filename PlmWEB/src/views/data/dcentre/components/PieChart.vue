@@ -26,9 +26,6 @@ export default {
   data() {
     return {
       chart: null,
-      tableData:[
-           
-                ],
       picData:[]
     }
   },
@@ -43,7 +40,19 @@ export default {
       }
     }, 100)
     window.addEventListener('resize', this.__resizeHandler)
+
+    //在mounted 声明周期中创建定时器
+      const timer = setInterval(()=>{
+        // 这里调用调用需要执行的方法，1为自定义的参数，由于特殊的需求它将用来区分，定时器调用和手工调用，然后执行不同的业务逻辑
+        this.selectData();
+      }, 5*60*1000) // 每五分钟执行1次
+      // 通过$once来监听定时器，在beforeDestroy钩子可以被清除
+      this.$once('hook:beforeDestroy',()=>{
+        // 在页面销毁时，销毁定时器
+        clearInterval(timer)
+      })
   },
+
   beforeDestroy() {
     if (!this.chart) {
       return
@@ -56,7 +65,7 @@ export default {
     selectData(){
         PojProportion().then(
         (response) => {
-          this.tableData = response.data;
+          this.picData = response.data;
           this.initChart()
         }
       ).catch(e => {
@@ -78,7 +87,7 @@ export default {
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)',
-          backgroundColor:'rgba(255,255,255,0.8)',
+          backgroundColor:'rgba(255,255,255,1)',
         },
         legend: {
           orient: 'vertical',
@@ -94,7 +103,7 @@ export default {
           {
             type: 'pie',
             radius: '40%',
-            data: this.tableData,
+            data: this.picData,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,

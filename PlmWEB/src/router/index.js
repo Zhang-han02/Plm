@@ -11,6 +11,11 @@ export default new Router({
       path: '/',
       name: 'index',
       component: index
+    },
+    {
+      path: '/v2',
+      name: 'indexv2',
+      component: (resolve) => require(['@/views/datatwo/index'], resolve),
     }
   ]
 })

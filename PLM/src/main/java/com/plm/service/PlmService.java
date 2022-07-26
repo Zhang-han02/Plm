@@ -42,6 +42,10 @@ public interface PlmService {
 
 
 
+    List<List<Object>> zhuzhuangtu();
+
+
+    List<Map<String,Object>> selectPojNum();
 
 
 

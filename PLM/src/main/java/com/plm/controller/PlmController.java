@@ -59,5 +59,20 @@ public class PlmController {
         return CommonResult.success(youxiaTwo);
     }
 
+    @RequestMapping(value = "/zhuzhuangtu", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<List<Object>>> zhuzhuangtu(){
+        List<List<Object>> zhuzhuangtu = plmService.zhuzhuangtu();
+        return CommonResult.success(zhuzhuangtu);
+    }
+
+
+    @RequestMapping(value = "/selectPojNum", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Map<String,Object>>> selectPojNum(){
+        List<Map<String,Object>> selectPojNum = plmService.selectPojNum();
+        return CommonResult.success(selectPojNum);
+    }
+
 
 }

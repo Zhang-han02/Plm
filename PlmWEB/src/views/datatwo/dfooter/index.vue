@@ -1,36 +1,37 @@
 <template>
-  <div class="user_skills">
-    <div class="partcomwithborder border">
-      <el-table :data="PojData" style="width: 100%"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
-        <el-table-column align="center" prop="projectnum" label="项目总数"></el-table-column>
-        <el-table-column align="center" prop="weiprojectnum" label="已完成数量"> </el-table-column>
-        <el-table-column align="center" prop="weiwancheng" label="未完成数量"> </el-table-column>
-        <el-table-column align="center" prop="baifenbi" label="已达成率"> </el-table-column>
-      </el-table>
-    </div>
-    <div class="partcomwithborder border" style="margin-top:10px">
-      <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
-        <el-table-column align="center" prop="typename" label="项目类型名称"></el-table-column>
-        <el-table-column align="center" prop="projectnum" label="项目数量"> </el-table-column>
-        <el-table-column align="center" prop="oknum" label="完成数量"> </el-table-column>
-        <el-table-column align="center" prop="okbili" label="已达成率"> </el-table-column>
-      </el-table>
-
-      <vue-seamless-scroll :data="tableData" class="seamless-warp" :class-option="classOption" >
-        <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
-          <el-table-column align="center" prop="typename" label="项目类型名称"></el-table-column>
-          <el-table-column align="center" prop="projectnum" label="项目数量"> </el-table-column>
-          <el-table-column align="center" prop="oknum" label="完成数量"> </el-table-column>
-          <el-table-column align="center" prop="okbili" label="已达成率"> </el-table-column>
+<div class="min partcomwithborder border">
+  <div style="display: inline-block; width: 100%">
+    <div class="user_skills">
+        <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
+          <el-table-column align="center" type="index" label="#"  width="40px"/>
+          <el-table-column align="center" prop="xiangmubianhao" label="项目编号"></el-table-column>
+          <el-table-column align="center" prop="xiangmuName" label="项目名称"> </el-table-column>
+          <el-table-column align="center" prop="xiangmuleixing" label="项目类型"></el-table-column>
+          <el-table-column align="center" prop="renwumingcheng" label="任务名称" ></el-table-column>
+          <el-table-column align="center" prop="fuzeren" label="负责人" width="150px"></el-table-column>
+          <el-table-column align="center" prop="jieshushijian" label="预计完成时间"  width="150px"></el-table-column>
+          <el-table-column align="center" prop="chaoqitianshu" label="超期天数" width="120px"></el-table-column>
         </el-table>
-      </vue-seamless-scroll>
+
+        <vue-seamless-scroll :data="tableData" class="seamless-warp" :class-option="classOption" >
+          <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
+            <el-table-column align="center" type="index" label="#"  width="40px"/> 
+            <el-table-column align="center" prop="xiangmubianhao" label="项目编号"></el-table-column>
+            <el-table-column align="center" prop="xiangmuName" label="项目名称"> </el-table-column>
+            <el-table-column align="center" prop="xiangmuleixing" label="项目类型"></el-table-column>
+            <el-table-column align="center" prop="renwumingcheng" label="任务名称" ></el-table-column>
+            <el-table-column align="center" prop="fuzeren" label="负责人" width="150px"></el-table-column>
+            <el-table-column align="center" prop="jieshushijian" label="预计完成时间"  width="150px"></el-table-column>
+            <el-table-column align="center" prop="chaoqitianshu" label="超期天数" width="120px"></el-table-column>
+          </el-table>
+        </vue-seamless-scroll>
     </div>
   </div>
+</div>
 </template>
 
 <script>
-
-import {zhongbiao,PojSum} from '@/api/plmApi'
+import {selectPojNum} from '@/api/plmApi'
 
 export default {
   components: {
@@ -39,20 +40,17 @@ export default {
   
 data() {
     return {
-      tableData: [],
-      PojData:[]
+      tableData: [ ]
     }
   },
 
-created() {
-  this.selectData();
-  this.selectPoj();
-     
+  created() {
+     this.selectData()
     },
-computed: {
+ computed: {
     classOption() {
         return {
-          step: 0.5, // 数值越大速度滚动越快
+          step: 1, // 数值越大速度滚动越快
           limitMoveNum: 5, // 无缝滚动的数据量
           hoverStop: true, // 是否开启鼠标悬停stop
           direction: 1, // 0向下 1向上 2向左 3向右
@@ -69,7 +67,6 @@ computed: {
       const timer = setInterval(()=>{
         // 这里调用调用需要执行的方法，1为自定义的参数，由于特殊的需求它将用来区分，定时器调用和手工调用，然后执行不同的业务逻辑
         this.selectData();
-        this.selectPoj();
       }, 5*60*1000) // 每五分钟执行1次
       // 通过$once来监听定时器，在beforeDestroy钩子可以被清除
       this.$once('hook:beforeDestroy',()=>{
@@ -86,19 +83,9 @@ computed: {
       this.$router.push({name:'Weighdetailall'})
     },
     selectData(){
-      zhongbiao().then(
+      selectPojNum().then(
         (response) => {
           this.tableData = response.data;
-        }
-      ).catch(e => {
-        
-        console.log(e)
-      })
-    },
-    selectPoj(){
-      PojSum().then(
-        (response) => {
-          this.PojData = response.data;
         }
       ).catch(e => {
         
@@ -111,8 +98,8 @@ computed: {
 
 <style lang="scss" scoped>
 .user_skills{
-  height:350px;
-  width: 100%;
+  height:343px;
+   width: 100%;
 }
 .user_skills /deep/ .el-table--fit{
     padding: 5px;
@@ -135,7 +122,7 @@ computed: {
 	 height: 0px;
 }
 >>>.seamless-warp {
-    height: 165px;
+    height: 287px;
     overflow: hidden;
     width: 100%
   }
@@ -169,5 +156,4 @@ computed: {
     background-size: 18px 18px;
     padding:2px;
 }
-
 </style>
