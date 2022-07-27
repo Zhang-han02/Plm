@@ -86,7 +86,7 @@ export default {
         },
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)',
+          formatter: '{b} : {c} ({d}%)',
           backgroundColor:'rgba(255,255,255,1)',
         },
         legend: {
@@ -103,6 +103,13 @@ export default {
           {
             type: 'pie',
             radius: '40%',
+            label: {
+              formatter: '{b}: {@2012} ({d}%)',
+              textStyle:{
+                color: '#fff'//字体颜色
+              },
+            },
+            
             data: this.picData,
             emphasis: {
               itemStyle: {

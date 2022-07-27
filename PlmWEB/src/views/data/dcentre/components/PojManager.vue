@@ -2,7 +2,7 @@
 <div class="min partcomwithborder border">
   <div style="display: inline-block; width: 100%">
     <div class="user_skills">
-        <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
+        <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
           <el-table-column align="center" prop="xiangmujinli" label="项目经理"></el-table-column>
           <el-table-column align="center" prop="zongnum" label="项目总数"> </el-table-column>
           <el-table-column align="center" prop="oknum" label="完成项目数"></el-table-column>
@@ -11,7 +11,7 @@
         </el-table>
 
         <vue-seamless-scroll :data="tableData" class="seamless-warp" :class-option="classOption" >
-          <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
+          <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
             <el-table-column align="center" prop="xiangmujinli" label="项目经理" ></el-table-column>
             <el-table-column align="center" prop="zongnum" label="项目总数"> </el-table-column>
             <el-table-column align="center" prop="oknum" label="完成项目数" ></el-table-column>
@@ -134,19 +134,19 @@ data() {
   width: 100%;
 }
 .border{
-  border: 3px solid #10D7FF; /*定义div的边框与边框颜色 */
+  border: 3px solid #19d2d8; /*定义div的边框与边框颜色 */
 }
 //边框四角
 .partcomwithborder{
     background:
-            linear-gradient(to bottom,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left top no-repeat,
-            linear-gradient(to right,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left top no-repeat,
-            linear-gradient(to bottom,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right top no-repeat,
-            linear-gradient(to left,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right top no-repeat,
-            linear-gradient(to top,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left bottom no-repeat,
-            linear-gradient(to right,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left bottom no-repeat,
-            linear-gradient(to top,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right bottom no-repeat,
-            linear-gradient(to left,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right bottom no-repeat;
+            linear-gradient(to bottom,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left top no-repeat,
+            linear-gradient(to right,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left top no-repeat,
+            linear-gradient(to bottom,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right top no-repeat,
+            linear-gradient(to left,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right top no-repeat,
+            linear-gradient(to top,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left bottom no-repeat,
+            linear-gradient(to right,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left bottom no-repeat,
+            linear-gradient(to top,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right bottom no-repeat,
+            linear-gradient(to left,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right bottom no-repeat;
     background-size: 18px 18px;
     padding:2px;
 }

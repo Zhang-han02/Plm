@@ -1,14 +1,13 @@
 package com.plm.service.impl;
 
+import com.plm.common.Asserts;
 import com.plm.mapper.PlmMapper;
 import com.plm.service.PlmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PlmServiceImpl implements PlmService {
@@ -51,46 +50,75 @@ public class PlmServiceImpl implements PlmService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         List<Map<String, Object>> mapList = plmMapper.youxiaTwo();
         //格式化时间
-        for (Map obj: mapList) {
-            String name = (String) obj.get("name");
-            int index = name.lastIndexOf(".");
-            if (index != -1){
-                name= name.substring(0,index);
+        try {
+            for (Map obj: mapList) {
+                String name = (String) obj.get("name");
+                int index = name.lastIndexOf(".");
+                if (index != -1){
+                    name= name.substring(0,index);
+                }
+                obj.put("name",name);
+                obj.put("endDate",format.format(obj.get("endDate")));
+                obj.put("startDate",format.format(obj.get("startDate")));
             }
-            obj.put("name",name);
-            obj.put("endDate",format.format(obj.get("endDate")));
-            obj.put("startDate",format.format(obj.get("startDate")));
+            return mapList;
+        } catch (Exception e){
+            Asserts.fail("右下角表格查询失败");
         }
-        return mapList;
+        return null;
     }
 
     @Override
-    public List<List<Object>> zhuzhuangtu() {
-        List<List<Object>> lists  = new ArrayList<>();
+    public Map<String,List<List<Object>>> zhuzhuangtu() {
+        List<List<Object>> zhuzhuangtu  = new ArrayList<>();
+        List<List<Object>> zhexiantu  = new ArrayList<>();
+        List<Object> wancheng = new ArrayList<>();
+        List<Object> xinzeng = new ArrayList<>();
+        Map<String,List<List<Object>>> data  = new LinkedHashMap<>(2);
         List<Map<String, Object>> mapList = plmMapper.zhuzhuangtu();
-        for (Map obj: mapList) {
-           List<Object> list = new ArrayList<>();
-           list.add(obj.get("yue"));
-           list.add(obj.get("xinzeng"));
-           list.add(obj.get("wancheng"));
-           lists.add(list);
-        }
-        List<Object> noData = new ArrayList<>();
-        noData.add("product");
-        noData.add("新增项目数量");
-        noData.add("已完成数");
-        lists.add(0,noData);
+        try{
+            for (Map obj: mapList) {
+                //折线图数据格式
+                List<Object> list = new ArrayList<>();
+                xinzeng.add(obj.get("xinzeng"));
+                wancheng.add(obj.get("wancheng"));
+                //柱状图数据格式
+                list.add(obj.get("yue"));
+                list.add(obj.get("xinzeng"));
+                list.add(obj.get("wancheng"));
+                zhuzhuangtu.add(list);
+            }
+            zhexiantu.add(xinzeng);
+            zhexiantu.add(wancheng);
+            List<Object> noData = new ArrayList<>();
+            noData.add("product");
+            noData.add("新增项目数量");
+            noData.add("已完成数");
+            zhuzhuangtu.add(0,noData);
+            data.put("zhuzhuangtu",zhuzhuangtu);
+            data.put("zhexiantu",zhexiantu);
 
-        return lists;
+
+            return data;
+        } catch (Exception e){
+            Asserts.fail("柱状图查询失败");
+        }
+        return null;
     }
 
     @Override
     public List<Map<String, Object>> selectPojNum() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         List<Map<String, Object>> mapList = plmMapper.selectPojNum();
-        for (Map obj: mapList) {
-            obj.put("jieshushijian",format.format(obj.get("jieshushijian")));
+        try{
+            //格式化时间
+            for (Map obj: mapList) {
+                obj.put("jieshushijian",format.format(obj.get("jieshushijian")));
+            }
+            return mapList;
+        } catch (Exception e){
+            Asserts.fail("项目查询失败");
         }
-        return mapList;
+        return  null;
     }
 }

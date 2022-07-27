@@ -33,13 +33,13 @@
                         PRJ_CLIENTNAME as kehuName,
                         case
                             when PRJ_STATUS=2 then '0'
-                            else datediff(day,PRJ_STARTDATE,PRJ_FINISHDATE ) end as shenyutianshu,
+                            else datediff(day,GETDATE(),PRJ_FINISHDATE ) end as shenyutianshu,
                         concat(convert(decimal(18,0),PRJ_FINISHWORKLOAD*100),'%') as jindu
         from ProjectTeamMember pt
                  left join ProjectRole pr on pr.PR_ROLEID=pt.PTM_ROLEID
                  left join dbo.Projects pj on pj.PRJ_PROJECTID=pt.PTM_PROJECTID
                  left join dbo.Users u on u.USERID=pt.PTM_USERID
-        where pr.PR_ROLEID=1 and USERNAME!='ADMIN' and USERNAME!='陶加雪'
+        where pr.PR_ROLEID=1 and USERNAME!='ADMIN' and USERNAME!='陶加雪' and PRJ_STATUS =1
         group by u.USERNAME,PRJ_PROJECTNO,PRJ_PROJECTNAME,PRJ_CLIENTNAME,PRJ_STARTDATE,PRJ_FINISHDATE,PRJ_STATUS,PRJ_FINISHWORKLOAD
     </select>
 
@@ -48,7 +48,7 @@
                  D.DC_DOCNAME as name,
                  D1.三个月预计订单量 as total , D1.预计结束时间 as endDate, D1.预计开始时间  as startDate
         FROM  DOCUMENT  D
-                  inner JOIN Document1  D1 ON  D.DC_DOCID=D1.COL_DOCUMENTID WHERE D.DC_DOCCLASS =43
+                  inner JOIN Document1  D1 ON  D.DC_DOCID=D1.COL_DOCUMENTID WHERE D.DC_DOCCLASS =43 and D.DC_STATUS = 0
     </select>
 
     <select id="zhuzhuangtu"  resultType="java.util.Map">

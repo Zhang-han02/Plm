@@ -41,10 +41,16 @@ public interface PlmService {
     List<Map<String,Object>> youxiaTwo();
 
 
+    /**
+     * 页面二柱状图与折线图
+     * @return
+     */
+    Map<String,List<List<Object>>> zhuzhuangtu();
 
-    List<List<Object>> zhuzhuangtu();
-
-
+    /**
+     * 页面二表格内容
+     * @return
+     */
     List<Map<String,Object>> selectPojNum();
 
 

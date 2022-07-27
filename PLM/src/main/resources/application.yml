@@ -24,6 +24,5 @@ mybatis:
 
 logging:
   level:
-    root: info
-    com.plm: debug
+    com.plm.mapper: debug
 

@@ -2,8 +2,8 @@
 <div class="min partcomwithborder border">
   <div style="display: inline-block; width: 100%">
     <div class="user_skills">
-        <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
-          <el-table-column align="center" type="index" label="#"  width="40px"/>
+        <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :row-class-name="tableRowClassName" :header-cell-style="{background:'#19d2d8',color:'#000000'}" style="font-size: 20px">
+          <el-table-column align="center" type="index" label="序号"  width="70px"/>
           <el-table-column align="center" prop="xiangmubianhao" label="项目编号"></el-table-column>
           <el-table-column align="center" prop="xiangmuName" label="项目名称"> </el-table-column>
           <el-table-column align="center" prop="xiangmuleixing" label="项目类型"></el-table-column>
@@ -14,8 +14,8 @@
         </el-table>
 
         <vue-seamless-scroll :data="tableData" class="seamless-warp" :class-option="classOption" >
-          <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#10D7FF',color:'#000000'}">
-            <el-table-column align="center" type="index" label="#"  width="40px"/> 
+          <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :row-class-name="tableRowClassName" :header-cell-style="{background:'#19d2d8',color:'#000000'}" style="font-size: 20px">
+            <el-table-column align="center" type="index" label="序号"  width="70px"/> 
             <el-table-column align="center" prop="xiangmubianhao" label="项目编号"></el-table-column>
             <el-table-column align="center" prop="xiangmuName" label="项目名称"> </el-table-column>
             <el-table-column align="center" prop="xiangmuleixing" label="项目类型"></el-table-column>
@@ -50,7 +50,7 @@ data() {
  computed: {
     classOption() {
         return {
-          step: 1, // 数值越大速度滚动越快
+          step: 0.5, // 数值越大速度滚动越快
           limitMoveNum: 5, // 无缝滚动的数据量
           hoverStop: true, // 是否开启鼠标悬停stop
           direction: 1, // 0向下 1向上 2向左 3向右
@@ -82,6 +82,14 @@ data() {
     viewdetial(){
       this.$router.push({name:'Weighdetailall'})
     },
+    tableRowClassName({row, rowIndex}) {
+      if (row.chaoqitianshu >0) {
+        return 'warning-row';
+      } else{
+        return 'ok-row';
+      }
+      return '';
+    },
     selectData(){
       selectPojNum().then(
         (response) => {
@@ -108,11 +116,22 @@ data() {
     background-color: transparent;
 }
 
-.user_skills /deep/ .el-table tr {
-    background-color: transparent!important;
-}
+
 .user_skills /deep/  .el-table--enable-row-transition .el-table__body td, .el-table .cell{
    background-color: transparent;
+}
+
+.user_skills /deep/ .el-table__body tr,
+  .el-table__body td {
+    padding: 0;
+    height: 80px;
+}
+
+.user_skills /deep/ .el-table .warning-row {
+  background:#d46051;
+}
+.user_skills /deep/ .el-table .ok-row {
+    background: transparent!important;
 }
 .user_skills /deep/ .el-table tbody tr:hover>td { background-color: #1075ad }
 .el-table::before {//去除底部白线
@@ -140,19 +159,19 @@ data() {
   width: 100%;
 }
 .border{
-  border: 3px solid #10D7FF; /*定义div的边框与边框颜色 */
+  border: 3px solid #19d2d8; /*定义div的边框与边框颜色 */
 }
 //边框四角
 .partcomwithborder{
     background:
-            linear-gradient(to bottom,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left top no-repeat,
-            linear-gradient(to right,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left top no-repeat,
-            linear-gradient(to bottom,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right top no-repeat,
-            linear-gradient(to left,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right top no-repeat,
-            linear-gradient(to top,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left bottom no-repeat,
-            linear-gradient(to right,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) left bottom no-repeat,
-            linear-gradient(to top,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right bottom no-repeat,
-            linear-gradient(to left,#33cdfa 0px,#33cdfa 2px,transparent 3px,transparent 100%) right bottom no-repeat;
+            linear-gradient(to bottom,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left top no-repeat,
+            linear-gradient(to right,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left top no-repeat,
+            linear-gradient(to bottom,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right top no-repeat,
+            linear-gradient(to left,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right top no-repeat,
+            linear-gradient(to top,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left bottom no-repeat,
+            linear-gradient(to right,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) left bottom no-repeat,
+            linear-gradient(to top,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right bottom no-repeat,
+            linear-gradient(to left,#19d2d8 0px,#19d2d8 2px,transparent 3px,transparent 100%) right bottom no-repeat;
     background-size: 18px 18px;
     padding:2px;
 }

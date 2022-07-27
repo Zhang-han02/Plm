@@ -4,6 +4,7 @@
 <script>
 import * as echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
+import {zhuzhuangtu} from '@/api/plmApi'
 
 export default {
   props: {
@@ -17,7 +18,7 @@ export default {
     },
     height: {
       type: String,
-      default: '200px'
+      default: '150px'
     },
     autoResize: {
       type: Boolean,
@@ -31,6 +32,8 @@ export default {
   data() {
     return {
       chart: null,
+      xinzengData: [],
+      wanchengData: []
     }
   },
   watch: {
@@ -41,11 +44,18 @@ export default {
       }
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.initChart()
-    })
-  },
+  mounted(){
+      //在mounted 声明周期中创建定时器
+      const timer = setInterval(()=>{
+        // 这里调用调用需要执行的方法，1为自定义的参数，由于特殊的需求它将用来区分，定时器调用和手工调用，然后执行不同的业务逻辑
+        this.selectData();
+      }, 5*60*1000) // 每五分钟执行1次
+      // 通过$once来监听定时器，在beforeDestroy钩子可以被清除
+      this.$once('hook:beforeDestroy',()=>{
+        // 在页面销毁时，销毁定时器
+        clearInterval(timer)
+      })
+    },
   beforeDestroy() {
     if (!this.chart) {
       return
@@ -54,9 +64,21 @@ export default {
     this.chart = null
   },
     created() {
-      
+      this.selectData()
     },
   methods: {
+    selectData(){
+      zhuzhuangtu().then(
+        (response) => {
+          this.xinzengData = response.data.zhexiantu[0];
+          this.wanchengData = response.data.zhexiantu[1];
+          this.initChart()
+        }
+      ).catch(e => {
+        
+        console.log(e)
+      })
+    },
 
 
     initChart() {
@@ -65,6 +87,7 @@ export default {
     },
     setOptions() {
       this.chart.setOption({
+        
         title: {
           
         },
@@ -74,37 +97,68 @@ export default {
         },
         legend: {
             data: ['新增项目数量', '已完成数'],
-            left: 'right',
-          textStyle:{
+            left: '80%',
+            textStyle:{
                 color: '#fff'//字体颜色
-           },
+            },
         },
         grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
+            backgroundColor:'#51d46d',
+            left: '2%',
+            right: '2%',
+            top: '15%',
+            bottom: '15%'
         },
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            splitLine:{
+              show:false
+              }
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            splitLine:{
+              show:false
+              }
         },
         series: [
             {
             name: '新增项目数量',
             type: 'line',
-            stack: 'Total',
-            data: [120, 132, 101, 134, 90, 230, 210,101, 134, 90, 230, 210]
+            data: this.xinzengData,
+            itemStyle : {
+								normal : {
+                  label : {
+                    show: true,
+                    textStyle:{
+                        color: '#fff'//字体颜色
+                    }
+                  },
+									lineStyle:{
+										color:'#51d46d'
+									}
+								}
+              }
             },
             {
             name: '已完成数',
             type: 'line',
-            stack: 'Total',
-            data: [220, 182, 191, 234, 290, 330, 310,182, 191, 234, 290, 330]
+            data: this.wanchengData,
+            itemStyle : {
+								normal : {
+                  label : {
+                    show: true,
+                    textStyle:{
+                        color: '#fff'//字体颜色
+                    }
+                  },
+									lineStyle:{
+										color:'#51a0d4'
+									}
+								}
+              }
             }
             
         ]
