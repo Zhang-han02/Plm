@@ -8,7 +8,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/v1',
+      path: '/',
       name: 'index',
       component: index
     },
@@ -18,8 +18,8 @@ export default new Router({
       component: (resolve) => require(['@/views/datatwo/index'], resolve),
     },
     {
-      path: '/',
-      name: 'indexv2',
+      path: '/login',
+      name: 'login',
       component: (resolve) => require(['@/views/login'], resolve),
     }
   ]

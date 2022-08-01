@@ -51,7 +51,7 @@ data() {
     classOption() {
         return {
           step: 0.5, // 数值越大速度滚动越快
-          limitMoveNum: 5, // 无缝滚动的数据量
+          limitMoveNum: 4, // 无缝滚动的数据量
           hoverStop: true, // 是否开启鼠标悬停stop
           direction: 1, // 0向下 1向上 2向左 3向右
           openWatch: true, // 开启数据实时监控刷新dom

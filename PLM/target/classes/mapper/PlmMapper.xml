@@ -23,7 +23,10 @@
     <select id="PojProportion"  resultType="java.util.Map">
         select B.PT_TYPENAME as name,COUNT(*) AS value
         from Projects a
-                 LEFT JOIN ProjectType b on  a.PRJ_TYPEID = B.PT_TYPEID GROUP BY PT_TYPENAME
+                 inner JOIN ProjectType b on  a.PRJ_TYPEID = B.PT_TYPEID
+                 inner JOIN ProjectTeamMember C ON a.PRJ_PROJECTID = c.PTM_PROJECTID
+        where c.PTM_ROLEID =1 and c.PTM_USERID != 'ADMIN' and c.PTM_USERID not like '%M%'
+        GROUP BY PT_TYPENAME
     </select>
 
     <select id="youxiaNo"  resultType="java.util.Map">

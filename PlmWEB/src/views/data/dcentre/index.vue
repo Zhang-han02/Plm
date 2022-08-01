@@ -1,17 +1,17 @@
 <template>
   <el-row :gutter="10" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+    <el-col  :lg="7" class="card-panel-col">
       <div class="partcomwithborder border" style="margin-left:10px">
           <pie-chart></pie-chart>
       </div>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="8" class="card-panel-col">
+    <el-col  :lg="8" class="card-panel-col">
       <poj-number></poj-number>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="7" class="card-panel-col">
+    <el-col  :lg="7" class="card-panel-col">
         <poj-manager></poj-manager>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="2" class="card-panel-col">
+    <el-col  :lg="2" class="card-panel-col" style="width:7.2%">
         <manager-top></manager-top>
     </el-col>
   </el-row>

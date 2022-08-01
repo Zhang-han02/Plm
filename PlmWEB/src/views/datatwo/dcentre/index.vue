@@ -18,7 +18,7 @@ export default {
     },
     height: {
       type: String,
-      default: '305px'
+      default: '280px'
     },
     autoResize: {
       type: Boolean,
@@ -85,7 +85,6 @@ export default {
     },
     setOptions() {
       this.chart.setOption({
-        backgroundColor:'',
         legend: {
           left: '80%',
           textStyle:{

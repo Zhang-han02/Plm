@@ -9,19 +9,19 @@
       </el-table>
     </div>
     <div class="partcomwithborder border" style="margin-top:10px">
-      <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
+      <el-table :data="tableData" class="top" cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
         <el-table-column align="center" prop="typename" label="项目类型名称"></el-table-column>
-        <el-table-column align="center" prop="projectnum" label="项目数量"> </el-table-column>
-        <el-table-column align="center" prop="oknum" label="完成数量"> </el-table-column>
-        <el-table-column align="center" prop="okbili" label="已达成率"> </el-table-column>
+        <el-table-column align="center" prop="projectnum" label="项目数量" width="110px"> </el-table-column>
+        <el-table-column align="center" prop="oknum" label="完成数量" width="110px"> </el-table-column>
+        <el-table-column align="center" prop="okbili" label="已达成率" width="110px"> </el-table-column>
       </el-table>
 
       <vue-seamless-scroll :data="tableData" class="seamless-warp" :class-option="classOption" >
-        <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
-          <el-table-column align="center" prop="typename" label="项目类型名称"></el-table-column>
-          <el-table-column align="center" prop="projectnum" label="项目数量"> </el-table-column>
-          <el-table-column align="center" prop="oknum" label="完成数量"> </el-table-column>
-          <el-table-column align="center" prop="okbili" label="已达成率"> </el-table-column>
+        <el-table :data="tableData" :show-header="false" class="bottom" cell-style="font-weight: 700;color:#fff" >
+          <el-table-column align="center" prop="typename" label="项目类型名称" ></el-table-column>
+          <el-table-column align="center" prop="projectnum" label="项目数量" width="110px"> </el-table-column>
+          <el-table-column align="center" prop="oknum" label="完成数量" width="110px"> </el-table-column>
+          <el-table-column align="center" prop="okbili" label="已达成率" width="110px"> </el-table-column>
         </el-table>
       </vue-seamless-scroll>
     </div>
@@ -39,7 +39,7 @@ export default {
   
 data() {
     return {
-      tableData: [],
+      tableData: [],         
       PojData:[]
     }
   },
@@ -53,7 +53,7 @@ computed: {
     classOption() {
         return {
           step: 0.5, // 数值越大速度滚动越快
-          limitMoveNum: 5, // 无缝滚动的数据量
+          limitMoveNum: 2, // 无缝滚动的数据量
           hoverStop: true, // 是否开启鼠标悬停stop
           direction: 1, // 0向下 1向上 2向左 3向右
           openWatch: true, // 开启数据实时监控刷新dom
