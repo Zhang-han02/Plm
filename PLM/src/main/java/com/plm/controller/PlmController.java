@@ -48,9 +48,38 @@ public class PlmController {
         return CommonResult.success(youshangTwo);
     }
     /**
+     *右上F类二表数据
+     * @return
+     */
+    @RequestMapping(value = "/youshangTwoFType", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Map<String,Object>>> youshangTwoFType(){
+        List<Map<String,Object>> youshangTwo = plmService.youshangTwoFType();
+        return CommonResult.success(youshangTwo);
+    }
+
+
+    /**
+     *F类前三数据
+     * @return
+     */
+    @RequestMapping(value = "/youshangTwoFTypeTop", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Map<String,Object>>> youshangTwoFTypeTop(){
+        List<Map<String,Object>> youshangTwo = plmService.youshangTwoFTypeTop();
+        return CommonResult.success(youshangTwo);
+    }
+
+    /**
      *项目总数未完成比例
      * @return
      */
+    @RequestMapping(value = "/PojSumFType", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Map<String,Object>>> PojSumFType(){
+        List<Map<String,Object>> PojSum = plmService.PojSumFType();
+        return CommonResult.success(PojSum);
+    }
     @RequestMapping(value = "/PojSum", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<Map<String,Object>>> PojSum(){
@@ -65,6 +94,13 @@ public class PlmController {
     @ResponseBody
     public CommonResult<List<Map<String,Object>>> PojProportion(){
         List<Map<String,Object>> PojProportion = plmService.PojProportion();
+        return CommonResult.success(PojProportion);
+    }
+
+    @RequestMapping(value = "/PojProportionFType", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Map<String,Object>>> PojProportionFType(){
+        List<Map<String,Object>> PojProportion = plmService.PojProportionFType();
         return CommonResult.success(PojProportion);
     }
     /**
@@ -109,6 +145,16 @@ public class PlmController {
         List<Map<String,Object>> selectPojNum = plmService.selectPojNum();
         return CommonResult.success(selectPojNum);
     }
+
+
+    @RequestMapping(value = "/selectPojNumFType", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Map<String,Object>>> selectPojNumFType(){
+        List<Map<String,Object>> selectPojNum = plmService.selectPojNumFType();
+        return CommonResult.success(selectPojNum);
+    }
+
+
 
 
 }

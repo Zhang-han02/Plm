@@ -27,6 +27,20 @@ export function youshangTwo() {
     })
 }
 
+export function youshangTwoFType() {
+  return request({
+    url: 'plm/youshangTwoFType',
+    method: 'get'
+  })
+}
+
+export function youshangTwoFTypeTop() {
+  return request({
+    url: 'plm/youshangTwoFTypeTop',
+    method: 'get'
+  })
+}
+
 export function PojSum() {
     return request({
       url: 'plm/PojSum',
@@ -34,11 +48,25 @@ export function PojSum() {
     })
 }
 
+export function PojSumFType() {
+  return request({
+    url: 'plm/PojSumFType',
+    method: 'get'
+  })
+}
+
 export function PojProportion() {
     return request({
       url: 'plm/PojProportion',
       method: 'get'
     })
+}
+
+export function PojProportionFType() {
+  return request({
+    url: 'plm/PojProportionFType',
+    method: 'get'
+  })
 }
 
 export function youxiaTwo() {
@@ -63,6 +91,12 @@ export function selectPojNum() {
   })
 }
 
+export function selectPojNumFType() {
+  return request({
+    url: 'plm/selectPojNumFType',
+    method: 'get'
+  })
+}
 
 
 export default {

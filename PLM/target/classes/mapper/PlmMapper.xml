@@ -5,27 +5,60 @@
         {call zhongbiao_info}
     </select>
     <select id="youshangTop"  resultType="java.util.Map">
-        {call xiangmujl_TOP3}
+        select  TOP(3) u.USERNAME as xiangmujinli,sum(convert(decimal(18,0),PRJ_FINISHWORKLOAD*100))/COUNT(u.USERNAME) as jindu
+        from ProjectTeamMember pt
+                 left join ProjectRole pr on pr.PR_ROLEID=pt.PTM_ROLEID
+                 left join dbo.Projects pj on pj.PRJ_PROJECTID=pt.PTM_PROJECTID
+                 inner JOIN ProjectType b on pj.PRJ_TYPEID = b.PT_TYPEID  and b.PT_TYPEID != 5
+                 left join dbo.Users u on u.USERID=pt.PTM_USERID
+        where pr.PR_ROLEID=1 and USERNAME!='ADMIN' and PRJ_STATUS =1 and pt.PTM_USERID not like '%M%'
+        group by u.USERNAME ORDER BY jindu desc
     </select>
     <select id="youshangTwo"  resultType="java.util.Map">
         {call xiangmujl_zongnum_oknum_jxnum}
     </select>
 
+    <select id="youshangTwoFType"  resultType="java.util.Map">
+        {call xiangmujl_zongnum_jxnum_ftype}
+    </select>
+
+    <select id="youshangTwoFTypeTop"  resultType="java.util.Map">
+        {call xiangmujl_zongnum_jxnum_ftype_top}
+    </select>
+
     <select id="PojSum"  resultType="java.util.Map">
-        select count(PRJ_PROJECTID) as projectnum,
-               (select count(PRJ_STATUS) from dbo.projects where PRJ_STATUS=2) as weiprojectnum,
-               count(PRJ_PROJECTID)-(select count(PRJ_STATUS) from dbo.projects where PRJ_STATUS=2) as weiwancheng,
-               concat(convert(decimal(18,0),(cast((select count(PRJ_PROJECTID) from dbo.projects where PRJ_STATUS=2)as float)/cast(count(PRJ_PROJECTID) as float))*100),'%')  as baifenbi
-        from dbo.projects
-        where PRJ_ISTEMPLATE!=1
+        SELECT z.projectnum, z.weiprojectnum, ( z.projectnum- z.weiprojectnum ) AS wancheng,concat(cast(cast(( z.projectnum- z.weiprojectnum )  * 1.0 /z.projectnum as decimal(18,4)) * 100  as decimal(18,2)),'%') AS baifenbi
+        FROM
+            (
+                SELECT COUNT
+                           ( a.PRJ_PROJECTID ) AS projectnum,
+                       (
+                           SELECT COUNT
+                                      ( c.PRJ_STATUS )
+                           FROM
+                               dbo.projects c
+                                   INNER JOIN ProjectType b ON c.PRJ_TYPEID = B.PT_TYPEID
+                           WHERE
+                               PRJ_ISTEMPLATE != 1
+                             AND b.PT_TYPEID != 5
+                             AND c.PRJ_STATUS IN ( 1, 2 )
+                             AND c.PRJ_STATUS= 1
+                       ) AS weiprojectnum
+                FROM
+                    projects a
+                        INNER JOIN ProjectType b ON a.PRJ_TYPEID = B.PT_TYPEID
+                WHERE
+                    PRJ_ISTEMPLATE != 1
+                  AND b.PT_TYPEID != 5
+                  AND a.PRJ_STATUS IN ( 1, 2 )) z
     </select>
 
     <select id="PojProportion"  resultType="java.util.Map">
         select B.PT_TYPENAME as name,COUNT(*) AS value
         from Projects a
                  inner JOIN ProjectType b on  a.PRJ_TYPEID = B.PT_TYPEID
-                 inner JOIN ProjectTeamMember C ON a.PRJ_PROJECTID = c.PTM_PROJECTID
-        where c.PTM_ROLEID =1 and c.PTM_USERID != 'ADMIN' and c.PTM_USERID not like '%M%'
+                 inner JOIN ProjectTeamMember c ON a.PRJ_PROJECTID = c.PTM_PROJECTID
+        where c.PTM_ROLEID =1 and c.PTM_USERID != 'ADMIN' and c.PTM_USERID not like '%M%' and b.PT_TYPEID != 5
         GROUP BY PT_TYPENAME
     </select>
 
@@ -41,9 +74,11 @@
         from ProjectTeamMember pt
                  left join ProjectRole pr on pr.PR_ROLEID=pt.PTM_ROLEID
                  left join dbo.Projects pj on pj.PRJ_PROJECTID=pt.PTM_PROJECTID
+                 inner JOIN ProjectType b on pj.PRJ_TYPEID = b.PT_TYPEID  and b.PT_TYPEID != 5
                  left join dbo.Users u on u.USERID=pt.PTM_USERID
-        where pr.PR_ROLEID=1 and USERNAME!='ADMIN' and USERNAME!='陶加雪' and PRJ_STATUS =1
+        where pr.PR_ROLEID=1 and USERNAME!='ADMIN' and PRJ_STATUS =1 and pt.PTM_USERID not like '%M%'
         group by u.USERNAME,PRJ_PROJECTNO,PRJ_PROJECTNAME,PRJ_CLIENTNAME,PRJ_STARTDATE,PRJ_FINISHDATE,PRJ_STATUS,PRJ_FINISHWORKLOAD
+
     </select>
 
     <select id="youxiaTwo"  resultType="java.util.Map">
@@ -60,5 +95,49 @@
 
     <select id="selectPojNum"  resultType="java.util.Map">
         {call kanban2_xia_info}
+    </select>
+
+
+    <select id="PojProportionFType"  resultType="java.util.Map">
+        select B.PT_TYPENAME as name,COUNT(*) AS value
+        from Projects a
+                 inner JOIN ProjectType b on  a.PRJ_TYPEID = B.PT_TYPEID
+                 inner JOIN ProjectTeamMember c ON a.PRJ_PROJECTID = c.PTM_PROJECTID
+        where c.PTM_ROLEID =1  and b.PT_TYPEID in (7,9)  and a.PRJ_STATUS in (0,1,2)
+        GROUP BY PT_TYPENAME
+    </select>
+
+
+    <select id="PojSumFType"  resultType="java.util.Map">
+        SELECT z.projectnum, z.weiprojectnum, ( z.projectnum- z.weiprojectnum ) AS wancheng,concat(cast(cast(( z.projectnum- z.weiprojectnum )  * 1.0 /z.projectnum as decimal(18,4)) * 100  as decimal(18,2)),'%') AS baifenbi
+        FROM
+            (
+                SELECT COUNT
+                           ( a.PRJ_PROJECTID ) AS projectnum,
+                       (
+                           SELECT COUNT
+                                      ( c.PRJ_STATUS )
+                           FROM
+                               dbo.projects c
+                                   INNER JOIN ProjectType b ON c.PRJ_TYPEID = B.PT_TYPEID
+                           WHERE
+                               PRJ_ISTEMPLATE != 1
+                             AND b.PT_TYPEID != 5
+                             and b.PT_TYPENAME like '%F%'
+                             AND c.PRJ_STATUS IN ( 1, 2 )
+                             AND c.PRJ_STATUS= 1
+                       ) AS weiprojectnum
+                FROM
+                    projects a
+                        INNER JOIN ProjectType b ON a.PRJ_TYPEID = B.PT_TYPEID
+                WHERE
+                    PRJ_ISTEMPLATE != 1
+                  AND b.PT_TYPEID != 5
+                  and b.PT_TYPENAME like '%F%'
+                  AND a.PRJ_STATUS IN ( 0,1, 2 )) z
+    </select>
+
+    <select id="selectPojNumFType"  resultType="java.util.Map">
+        {call kanban2_xia_info_ftype}
     </select>
 </mapper>

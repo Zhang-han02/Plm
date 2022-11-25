@@ -3,38 +3,51 @@
     <div class="partcomwithborder border">
       <el-table :data="PojData" style="width: 100%"  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
         <el-table-column align="center" prop="projectnum" label="项目总数"></el-table-column>
-        <el-table-column align="center" prop="weiprojectnum" label="已完成数量"> </el-table-column>
-        <el-table-column align="center" prop="weiwancheng" label="未完成数量"> </el-table-column>
+        <el-table-column align="center" prop="wancheng" label="已完成数量"> </el-table-column>
+        <el-table-column align="center" prop="weiprojectnum" label="未完成数量"> </el-table-column>
         <el-table-column align="center" prop="baifenbi" label="已达成率"> </el-table-column>
       </el-table>
     </div>
-    <div class="partcomwithborder border" style="margin-top:10px">
-      <el-table :data="tableData" class="top" cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
-        <el-table-column align="center" prop="typename" label="项目类型名称"></el-table-column>
-        <el-table-column align="center" prop="projectnum" label="项目数量" width="110px"> </el-table-column>
-        <el-table-column align="center" prop="oknum" label="完成数量" width="110px"> </el-table-column>
-        <el-table-column align="center" prop="okbili" label="已达成率" width="110px"> </el-table-column>
+     <div class="partcomwithborder border" style="margin-top:10px">
+      <el-table :data="tableData" class="top" border  cell-style="font-weight: 700;color:#fff" :header-cell-style="{background:'#19d2d8',color:'#000000', height: '20px'}">
+        <el-table-column>
+              <template slot="header" >
+                  <div class="newColumnTips">
+                    项目超市
+                  </div>
+              </template>
+            <el-table-column align="center" type="index" label="序号" width="50px"/>
+            <el-table-column align="center" prop="nameCode" label="项目编号" ></el-table-column>
+            <el-table-column align="center" prop="name" label="项目名称"> </el-table-column>
+            <el-table-column align="center" prop="total" label="三个月预计订单量" ></el-table-column>
+            <el-table-column align="center" prop="startDate" label="预计开始时间" width="120px"></el-table-column>
+            <el-table-column align="center" prop="endDate" label="预计结束时间" width="120px"></el-table-column>
+          </el-table-column>
       </el-table>
 
       <vue-seamless-scroll :data="tableData" class="seamless-warp" :class-option="classOption" >
-        <el-table :data="tableData" :show-header="false" class="bottom" cell-style="font-weight: 700;color:#fff" >
-          <el-table-column align="center" prop="typename" label="项目类型名称" ></el-table-column>
-          <el-table-column align="center" prop="projectnum" label="项目数量" width="110px"> </el-table-column>
-          <el-table-column align="center" prop="oknum" label="完成数量" width="110px"> </el-table-column>
-          <el-table-column align="center" prop="okbili" label="已达成率" width="110px"> </el-table-column>
+        <el-table :data="tableData" border :show-header="false" class="bottom" cell-style="font-weight: 700;color:#fff" >
+         <el-table-column align="center" type="index" label="序号" width="50px"/>
+          <el-table-column align="center" prop="nameCode" label="项目编号" ></el-table-column>
+          <el-table-column align="center" prop="name" label="项目名称"> </el-table-column>
+          <el-table-column align="center" prop="total" label="三个月预计订单量" ></el-table-column>
+          <el-table-column align="center" prop="startDate" label="预计开始时间" width="120px"></el-table-column>
+          <el-table-column align="center" prop="endDate" label="预计结束时间" width="120px"></el-table-column>
         </el-table>
       </vue-seamless-scroll>
-    </div>
+    </div> 
+     <!-- <dright  style="margin-top:10px"/>  -->
   </div>
 </template>
 
 <script>
 
-import {zhongbiao,PojSum} from '@/api/plmApi'
+import {zhongbiao,PojSum,youxiaTwo} from '@/api/plmApi'
+import dright from '../../dfooter/components/dright'
 
 export default {
   components: {
-  
+   dright
   },
   
 data() {
@@ -70,7 +83,7 @@ computed: {
         // 这里调用调用需要执行的方法，1为自定义的参数，由于特殊的需求它将用来区分，定时器调用和手工调用，然后执行不同的业务逻辑
         this.selectData();
         this.selectPoj();
-      }, 5*60*1000) // 每五分钟执行1次
+      }, 3*60*1000) // 每五分钟执行1次
       // 通过$once来监听定时器，在beforeDestroy钩子可以被清除
       this.$once('hook:beforeDestroy',()=>{
         // 在页面销毁时，销毁定时器
@@ -86,7 +99,7 @@ computed: {
       this.$router.push({name:'Weighdetailall'})
     },
     selectData(){
-      zhongbiao().then(
+      youxiaTwo().then(
         (response) => {
           this.tableData = response.data;
         }
@@ -135,7 +148,7 @@ computed: {
 	 height: 0px;
 }
 >>>.seamless-warp {
-    height: 165px;
+    height: 117px;
     overflow: hidden;
     width: 100%
   }
@@ -169,5 +182,8 @@ computed: {
     background-size: 18px 18px;
     padding:2px;
 }
-
+.newColumnTips{
+   font-size: 18px;
+   color: rgb(255, 255, 255);
+}
 </style>

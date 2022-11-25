@@ -46,7 +46,7 @@ data() {
     classOption() {
         return {
           step: 0.5, // 数值越大速度滚动越快
-          limitMoveNum: 5, // 无缝滚动的数据量
+          limitMoveNum: 4, // 无缝滚动的数据量
           hoverStop: true, // 是否开启鼠标悬停stop
           direction: 1, // 0向下 1向上 2向左 3向右
           openWatch: true, // 开启数据实时监控刷新dom
@@ -62,7 +62,7 @@ data() {
       const timer = setInterval(()=>{
         // 这里调用调用需要执行的方法，1为自定义的参数，由于特殊的需求它将用来区分，定时器调用和手工调用，然后执行不同的业务逻辑
         this.selectPoj();
-      }, 5*60*1000) // 每五分钟执行1次
+      }, 3*60*1000) // 每五分钟执行1次
       // 通过$once来监听定时器，在beforeDestroy钩子可以被清除
       this.$once('hook:beforeDestroy',()=>{
         // 在页面销毁时，销毁定时器

@@ -54,5 +54,39 @@ public interface PlmService {
     List<Map<String,Object>> selectPojNum();
 
 
+    /**
+     *F类 项目占比
+     * @return
+     */
+    List<Map<String,Object>> PojProportionFType();
+
+
+    /**
+     *F类 项目总数未完成比例
+     * @return
+     */
+    List<Map<String,Object>> PojSumFType();
+
+
+    /**
+     * 页面二表格内容
+     * @return
+     */
+    List<Map<String,Object>> selectPojNumFType();
+
+
+    /**
+     *右上二表数据
+     * @return
+     */
+    List<Map<String,Object>> youshangTwoFType();
+
+
+    /**
+     *右上二表数据
+     * @return
+     */
+    List<Map<String,Object>> youshangTwoFTypeTop();
+
 
 }

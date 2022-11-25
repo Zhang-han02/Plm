@@ -61,7 +61,7 @@ data() {
 
 <style lang="scss" scoped>
 .user_skills{
-  height:347px;
+  height:350px;
    width: 100%;
 }
 .user_skills /deep/ .el-table--fit{

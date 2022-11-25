@@ -1,11 +1,11 @@
 <template>
   <el-row :gutter="10" class="panel-group">
-    <el-col  :lg="7" class="card-panel-col">
+    <el-col  :lg="6" class="card-panel-col">
       <div class="partcomwithborder border" style="margin-left:10px">
           <pie-chart></pie-chart>
       </div>
     </el-col>
-    <el-col  :lg="8" class="card-panel-col">
+    <el-col  :lg="9" class="card-panel-col">
       <poj-number></poj-number>
     </el-col>
     <el-col  :lg="7" class="card-panel-col">

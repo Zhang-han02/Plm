@@ -2,27 +2,27 @@
 <div class="min partcomwithborder border">
   <div style="display: inline-block; width: 100%">
     <div class="user_skills">
-        <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :row-class-name="tableRowClassName" :header-cell-style="{background:'#19d2d8',color:'#000000'}" style="font-size: 20px">
+        <el-table :data="tableData" class="top"  cell-style="font-weight: 700;color:#fff" :row-class-name="tableRowClassName" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
           <el-table-column align="center" type="index" label="序号"  width="70px"/>
           <el-table-column align="center" prop="xiangmubianhao" label="项目编号"></el-table-column>
           <el-table-column align="center" prop="xiangmuName" label="项目名称"> </el-table-column>
           <el-table-column align="center" prop="xiangmuleixing" label="项目类型"></el-table-column>
           <el-table-column align="center" prop="renwumingcheng" label="任务名称" ></el-table-column>
-          <el-table-column align="center" prop="fuzeren" label="负责人" width="150px"></el-table-column>
-          <el-table-column align="center" prop="jieshushijian" label="预计完成时间"  width="150px"></el-table-column>
-          <el-table-column align="center" prop="chaoqitianshu" label="超期天数" width="120px"></el-table-column>
+          <el-table-column align="center" prop="fuzeren" label="负责人" width="80px"></el-table-column>
+          <el-table-column align="center" prop="jieshushijian" label="预计完成时间"  width="110px"></el-table-column>
+          <el-table-column align="center" prop="chaoqitianshu" label="超期天数" width="90px"></el-table-column>
         </el-table>
 
         <vue-seamless-scroll :data="tableData" class="seamless-warp" :class-option="classOption" >
-          <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :row-class-name="tableRowClassName" :header-cell-style="{background:'#19d2d8',color:'#000000'}" style="font-size: 20px">
+          <el-table :data="tableData" class="bottom"  cell-style="font-weight: 700;color:#fff" :row-class-name="tableRowClassName" :header-cell-style="{background:'#19d2d8',color:'#000000'}">
             <el-table-column align="center" type="index" label="序号"  width="70px"/> 
             <el-table-column align="center" prop="xiangmubianhao" label="项目编号"></el-table-column>
             <el-table-column align="center" prop="xiangmuName" label="项目名称"> </el-table-column>
             <el-table-column align="center" prop="xiangmuleixing" label="项目类型"></el-table-column>
             <el-table-column align="center" prop="renwumingcheng" label="任务名称" ></el-table-column>
-            <el-table-column align="center" prop="fuzeren" label="负责人" width="150px"></el-table-column>
-            <el-table-column align="center" prop="jieshushijian" label="预计完成时间"  width="150px"></el-table-column>
-            <el-table-column align="center" prop="chaoqitianshu" label="超期天数" width="120px"></el-table-column>
+            <el-table-column align="center" prop="fuzeren" label="负责人" width="80px"></el-table-column>
+            <el-table-column align="center" prop="jieshushijian" label="预计完成时间"  width="110px"></el-table-column>
+            <el-table-column align="center" prop="chaoqitianshu" label="超期天数" width="90px"></el-table-column>
           </el-table>
         </vue-seamless-scroll>
     </div>
@@ -67,7 +67,7 @@ data() {
       const timer = setInterval(()=>{
         // 这里调用调用需要执行的方法，1为自定义的参数，由于特殊的需求它将用来区分，定时器调用和手工调用，然后执行不同的业务逻辑
         this.selectData();
-      }, 5*60*1000) // 每五分钟执行1次
+      }, 3*60*1000) // 每五分钟执行1次
       // 通过$once来监听定时器，在beforeDestroy钩子可以被清除
       this.$once('hook:beforeDestroy',()=>{
         // 在页面销毁时，销毁定时器
@@ -141,7 +141,7 @@ data() {
 	 height: 0px;
 }
 >>>.seamless-warp {
-    height: 287px;
+    height: 400px;
     overflow: hidden;
     width: 100%
   }

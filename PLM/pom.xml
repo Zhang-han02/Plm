@@ -118,7 +118,6 @@
             <artifactId>spring-data-commons</artifactId>
             <version>${spring-data-commons.version}</version>
         </dependency>
-
         <!--集成logstash-->
         <dependency>
             <groupId>net.logstash.logback</groupId>
@@ -137,6 +136,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>plm</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

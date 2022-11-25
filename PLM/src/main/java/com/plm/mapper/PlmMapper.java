@@ -13,6 +13,10 @@ public interface PlmMapper {
 
     List<Map<String,Object>> youshangTwo();
 
+    List<Map<String,Object>> youshangTwoFType();
+
+    List<Map<String,Object>> youshangTwoFTypeTop();
+
 
     List<Map<String,Object>> PojSum();
 
@@ -28,5 +32,12 @@ public interface PlmMapper {
     List<Map<String,Object>> zhuzhuangtu();
 
     List<Map<String,Object>> selectPojNum();
+
+
+    List<Map<String,Object>> PojProportionFType();
+
+    List<Map<String,Object>> PojSumFType();
+
+    List<Map<String,Object>> selectPojNumFType();
 
 }

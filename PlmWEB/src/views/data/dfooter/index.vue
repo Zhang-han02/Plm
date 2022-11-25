@@ -14,6 +14,7 @@ import dleft from './components/dleft'
 import dright from './components/dright'
 
 
+
 export default {
   components: {
     dleft,

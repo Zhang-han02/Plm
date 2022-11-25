@@ -121,4 +121,40 @@ public class PlmServiceImpl implements PlmService {
         }
         return  null;
     }
+
+    @Override
+    public List<Map<String, Object>> PojProportionFType() {
+        return plmMapper.PojProportionFType();
+    }
+
+    @Override
+    public List<Map<String, Object>> PojSumFType() {
+        return plmMapper.PojSumFType();
+    }
+
+    @Override
+    public List<Map<String, Object>> selectPojNumFType() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        List<Map<String, Object>> mapList = plmMapper.selectPojNumFType();
+        try{
+            //格式化时间
+            for (Map obj: mapList) {
+                obj.put("jieshushijian",format.format(obj.get("jieshushijian")));
+            }
+            return mapList;
+        } catch (Exception e){
+            Asserts.fail("项目查询失败");
+        }
+        return  null;
+    }
+
+    @Override
+    public List<Map<String, Object>> youshangTwoFType() {
+        return plmMapper.youshangTwoFType();
+    }
+
+    @Override
+    public List<Map<String, Object>> youshangTwoFTypeTop() {
+        return plmMapper.youshangTwoFTypeTop();
+    }
 }
